@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FreeBuff AI — Fight Night Edition</title>
+  <meta name="description" content="A 500-series anime draft room. Roll five, file them blind, then rate the deck, fight the AI, challenge a friend, or put any two characters in front of the analyst.">
+  <meta name="theme-color" content="#07090b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c8ff3d'/%3E%3Cpath d='M7 25V7h15l-3 5H12v3h6l-2.5 5H12v5z' fill='%2307090b'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the desk</a>
+  <div class="screen" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+  <p class="sr-only" id="announcer" aria-live="polite"></p>
+
+  <header class="top">
+    <div class="top-bar">
+      <a class="brand" href="#" aria-label="FreeBuff AI, home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span class="brand-word">FREEBUFF</span>
+        <span class="brand-ai">AI</span>
+        <span class="brand-show">FIGHT NIGHT<br>EDITION 2026</span>
+      </a>
+      <div class="top-right">
+        <span class="onair"><i aria-hidden="true"></i>ON AIR</span>
+        <span class="top-session">DRAWN <b id="tel-session">00</b></span>
+        <span class="top-server" id="server-status">SERVER · CHECKING</span>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Sections">
+      <div class="tabs" role="tablist" aria-label="FreeBuff AI sections">
+        <button class="tab is-active" role="tab" id="tab-builder" aria-controls="view-builder" aria-selected="true" data-view="builder">
+          <span class="tab-no">01</span><span class="tab-label">Builder</span>
+        </button>
+        <button class="tab" role="tab" id="tab-rater" aria-controls="view-rater" aria-selected="false" tabindex="-1" data-view="rater">
+          <span class="tab-no">02</span><span class="tab-label">Deck Rater</span>
+        </button>
+        <button class="tab" role="tab" id="tab-duel" aria-controls="view-duel" aria-selected="false" tabindex="-1" data-view="duel">
+          <span class="tab-no">03</span><span class="tab-dot"></span><span class="tab-label">1v1 AI</span>
+        </button>
+        <button class="tab" role="tab" id="tab-live" aria-controls="view-live" aria-selected="false" tabindex="-1" data-view="live">
+          <span class="tab-no">04</span><span class="tab-dot live"></span><span class="tab-label">1v1 Live</span>
+        </button>
+        <button class="tab" role="tab" id="tab-analyst" aria-controls="view-analyst" aria-selected="false" tabindex="-1" data-view="analyst">
+          <span class="tab-no">05</span><span class="tab-dot"></span><span class="tab-label">Analyst Desk</span>
+        </button>
+      </div>
+      <div class="nav-tools">
+        <button class="nav-find" id="find-open" type="button" aria-haspopup="dialog" aria-controls="find-overlay" aria-expanded="false" aria-keyshortcuts="/" aria-label="Open the character searcher">
+          <span aria-hidden="true">⌕</span><span class="nav-find-label">Find</span><kbd>/</kbd>
+        </button>
+        <button class="switch" id="awake-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle the awakening buff">
+          <span class="switch-box" aria-hidden="true"></span>
+          <span class="switch-label">Awakening <span id="awake-state">OFF</span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="ticker" aria-hidden="true">
+      <span><b>Roster</b><i id="tel-roster">500</i></span>
+      <span><b>Sealed</b><i id="tel-deck">00 / 05</i></span>
+      <span><b>Rerolls</b><i id="tel-rerolls">1</i></span>
+      <span><b>Pity</b><i>00</i></span>
+      <span class="ticker-last"><b>Deck</b><i id="ticker-deck">UNRATED</i></span>
+    </div>
+  </header>
+
+  <main class="shell" id="main">
+    <!-- ══ 01 · BUILDER ═══════════════════════════════════════════════ -->
+    <section class="view" id="view-builder" role="tabpanel" aria-labelledby="tab-builder">
+      <div class="rundown">
+        <span class="rundown-no">01</span>
+        <div class="rundown-main">
+          <span class="eyebrow">Roulette sandbox · no opponent</span>
+          <h1>Character Builder</h1>
+        </div>
+        <div class="rundown-side">
+          <span class="live-tag">Board open</span>
+          <span class="rundown-metric">500 series · 05 slots · 01 reroll · 00 pity</span>
+        </div>
+      </div>
+
+      <div class="builder">
+        <section class="panel deck-panel" aria-labelledby="deck-title">
+          <div class="panel-head">
+            <span class="panel-no">A</span>
+            <h2 id="deck-title">Your Core</h2>
+            <span class="panel-meta" id="user-count">00 / 05 filed</span>
+          </div>
+          <div class="slot-list" id="deck-list"></div>
+          <div class="total-bar">
+            <span>Output total</span>
+            <b id="total-now">000</b>
+          </div>
+        </section>
+
+        <section class="panel draft-panel" aria-labelledby="board-title">
+          <div class="panel-head">
+            <span class="panel-no">B</span>
+            <h2 id="board-title">The Board</h2>
+            <span class="panel-meta" id="stage-meta">Awaiting pull</span>
+            <div class="head-right">
+              <button class="icon-btn" type="button" data-action="reset" title="Reset the session" aria-label="Reset the session">↺</button>
+            </div>
+          </div>
+          <div class="stage" id="stage"></div>
+          <div class="stage-foot">
+            <div class="dist" id="dist"></div>
+            <div class="keyhints"><span><kbd>R</kbd> Roll</span><span><kbd>W</kbd> Reroll</span><span><kbd>1</kbd>–<kbd>5</kbd> File</span></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="tape-band">
+        <div class="tape-head">
+          <span class="kicker">Session tape</span>
+          <span id="tape-count">00 entries</span>
+        </div>
+        <div class="tape-list" id="tape-list"></div>
+      </div>
+    </section>
+
+    <!-- ══ 02 · DECK RATER ═══════════════════════════════════════════ -->
+    <section class="view" id="view-rater" role="tabpanel" aria-labelledby="tab-rater" hidden>
+      <div class="rundown">
+        <span class="rundown-no">02</span>
+        <div class="rundown-main">
+          <span class="eyebrow">Placement audit · no opponent needed</span>
+          <h1>Deck Rater</h1>
+        </div>
+        <div class="rundown-side">
+          <span class="live-tag" id="rater-tag">Awaiting seal</span>
+          <span class="rundown-metric">Canon card vs filed slot · five attributes</span>
+        </div>
+      </div>
+      <div id="rater-root"></div>
+    </section>
+
+    <!-- ══ 03 · 1V1 AI ════════════════════════════════════════════════ -->
+    <section class="view" id="view-duel" role="tabpanel" aria-labelledby="tab-duel" hidden>
+      <div class="rundown">
+        <span class="rundown-no">03</span>
+        <div class="rundown-main">
+          <span class="eyebrow">Single elimination · best of one</span>
+          <h1>1v1 AI</h1>
+        </div>
+        <div class="rundown-side">
+          <span class="live-tag">One fighter each</span>
+          <span class="rundown-metric">Five attributes · peak reads compare twice</span>
+        </div>
+      </div>
+
+      <section class="panel pick-bar" aria-labelledby="duel-pick-title">
+        <div class="pick-bar-head">
+          <span class="panel-no">A</span>
+          <h2 id="duel-pick-title">Name your fighter</h2>
+          <span class="panel-meta">The AI draws blind from the same 500</span>
+        </div>
+        <div class="pick-bar-row">
+          <div class="picker-host" id="duel-picker"></div>
+          <button class="btn btn-primary" type="button" id="duel-fight" disabled>Fight the AI <span class="count">BO1</span></button>
+        </div>
+      </section>
+
+      <div id="duel-root"></div>
+    </section>
+
+    <!-- ══ 04 · 1V1 LIVE ═════════════════════════════════════════════ -->
+    <section class="view" id="view-live" role="tabpanel" aria-labelledby="tab-live" hidden>
+      <div class="rundown">
+        <span class="rundown-no">04</span>
+        <div class="rundown-main">
+          <span class="eyebrow">Room code or public queue</span>
+          <h1>1v1 Live</h1>
+        </div>
+        <div class="rundown-side">
+          <span class="live-tag accent">Server relay</span>
+          <span class="rundown-metric" id="live-metric">Local relay · no accounts</span>
+        </div>
+      </div>
+
+      <div class="mp-offline" id="mp-offline" hidden>
+        <span class="live-tag accent">Offline</span>
+        <div>
+          <b>The relay is not running.</b>
+          <p class="micro">Start it with <strong>node server.js</strong> in this folder, then reload. The solo sections keep working without it.</p>
+        </div>
+      </div>
+
+      <div id="live-root"></div>
+    </section>
+
+    <!-- ══ 05 · ANALYST DESK ═════════════════════════════════════════ -->
+    <section class="view" id="view-analyst" role="tabpanel" aria-labelledby="tab-analyst" hidden>
+      <div class="rundown">
+        <span class="rundown-no">05</span>
+        <div class="rundown-main">
+          <span class="eyebrow">Local analyst · three desks · no cloud</span>
+          <h1>Analyst Desk</h1>
+        </div>
+        <div class="rundown-side">
+          <span class="live-tag">Runs in this tab</span>
+          <span class="rundown-metric">Reads the builder · ringside knowledge</span>
+        </div>
+      </div>
+
+      <div class="subnav" role="tablist" aria-label="Analyst desks">
+        <button class="subtab is-active" type="button" role="tab" id="subtab-main" aria-controls="ana-main" aria-selected="true" data-ana="main">Main</button>
+        <button class="subtab" type="button" role="tab" id="subtab-who" aria-controls="ana-who" aria-selected="false" tabindex="-1" data-ana="who">Who wins?</button>
+        <button class="subtab" type="button" role="tab" id="subtab-brief" aria-controls="ana-brief" aria-selected="false" tabindex="-1" data-ana="brief">Briefing</button>
+      </div>
+
+      <div class="ana-view" id="ana-main" role="tabpanel" aria-labelledby="subtab-main">
+        <div class="chat-grid">
+          <section class="panel chat-panel" aria-labelledby="chat-title">
+            <div class="chat-head">
+              <span class="chat-avatar" aria-hidden="true">AI</span>
+              <div>
+                <strong id="chat-title">FreeBuff Analyst</strong>
+                <span>Local rules engine · reads your core</span>
+              </div>
+              <span class="chat-state" id="chat-state">READY</span>
+            </div>
+            <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Analyst conversation"></div>
+            <form class="chat-form" id="chat-form">
+              <label class="sr-only" for="chat-input">Message the analyst</label>
+              <input id="chat-input" type="text" autocomplete="off" placeholder="Ask about tiers, peaks, matchups…" maxlength="400">
+              <button class="btn btn-primary" type="submit">Send</button>
+            </form>
+          </section>
+
+          <aside class="chat-rail">
+            <section class="panel rail-panel" aria-labelledby="suggest-title">
+              <div class="panel-head"><span class="panel-no">1</span><h2 id="suggest-title">Try asking</h2></div>
+              <div class="suggest" id="chat-suggest"></div>
+            </section>
+            <section class="panel rail-panel" aria-labelledby="snapshot-title">
+              <div class="panel-head"><span class="panel-no">2</span><h2 id="snapshot-title">Desk snapshot</h2></div>
+              <div class="snapshot" id="chat-snapshot"></div>
+            </section>
+          </aside>
+        </div>
+      </div>
+
+      <div class="ana-view" id="ana-who" role="tabpanel" aria-labelledby="subtab-who" hidden>
+        <div class="who-grid">
+          <section class="panel who-panel" aria-labelledby="who-a-title">
+            <div class="panel-head"><span class="panel-no">A</span><h2 id="who-a-title">Red corner</h2><span class="panel-meta">Challenger</span></div>
+            <div class="pick-bar-row" id="who-picker-a"></div>
+            <div class="who-card" id="who-card-a"></div>
+          </section>
+          <div class="who-medal" aria-hidden="true">VS</div>
+          <section class="panel who-panel" aria-labelledby="who-b-title">
+            <div class="panel-head"><span class="panel-no">B</span><h2 id="who-b-title">Blue corner</h2><span class="panel-meta">Challenger</span></div>
+            <div class="pick-bar-row" id="who-picker-b"></div>
+            <div class="who-card" id="who-card-b"></div>
+          </section>
+        </div>
+        <div class="who-actions">
+          <button class="btn btn-primary" type="button" id="who-fight" disabled>Determine the winner</button>
+          <button class="btn" type="button" data-action="who-swap">Swap corners</button>
+          <button class="btn" type="button" data-action="who-random">Random pair</button>
+          <button class="btn" type="button" data-action="who-clear">Clear</button>
+        </div>
+        <div class="who-result" id="who-result"></div>
+      </div>
+
+      <div class="ana-view" id="ana-brief" role="tabpanel" aria-labelledby="subtab-brief" hidden>
+        <div class="brief-grid">
+          <section class="panel brief-panel" aria-labelledby="brief-rules-title">
+            <div class="panel-head"><span class="panel-no">1</span><h2 id="brief-rules-title">The rulebook</h2></div>
+            <div class="brief-body">
+              <p><b>Five slots, five attributes.</b> Each pulled character belongs on exactly one line: Strength, Speed, Abilities, IQ or Durability.</p>
+              <ul class="brief-list">
+                <li><b>Peak</b> — the card’s authored attribute. A perfect file appends <b>*</b> and multiplies hard.</li>
+                <li><b>Off-meta</b> — a peak filed out of position collapses to a <b>penalised</b> slot and rates as E.</li>
+                <li><b>Sealed</b> — peaks are hidden until the deck is locked. Clues live in the signature, archetype and trait lines.</li>
+                <li><b>No pity</b> — every pull is a flat roll from the 500-series pool.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="panel brief-panel" aria-labelledby="brief-odds-title">
+            <div class="panel-head"><span class="panel-no">2</span><h2 id="brief-odds-title">Live pull odds</h2><span class="panel-meta">8 bands</span></div>
+            <div class="brief-body">
+              <div class="odds-list" id="brief-odds"></div>
+              <p class="micro">Eight bands. Every roll is uniform across the 500 series; the printed bands are the share of the pool that lands there. There is no pity counter and no weighted table.</p>
+            </div>
+          </section>
+
+          <section class="panel brief-panel" aria-labelledby="brief-how-title">
+            <div class="panel-head"><span class="panel-no">3</span><h2 id="brief-how-title">How to build</h2></div>
+            <div class="brief-body">
+              <p><b>Read the card, not the colour.</b> The rarity tag is a hint, not a guarantee — a low band with a peak on a rare attribute can carry a slot.</p>
+              <ul class="brief-list">
+                <li><b>01</b> Roll until the board offers a character you can place.</li>
+                <li><b>02</b> File blind. The board never shows the peak.</li>
+                <li><b>03</b> Seal, then let the rater reveal what you actually built.</li>
+                <li><b>04</b> Take the same core into 1v1 AI or a live room.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel brief-snapshot" aria-labelledby="brief-snap-title">
+          <div class="panel-head"><span class="panel-no">4</span><h2 id="brief-snap-title">Current desk</h2><span class="panel-meta" id="brief-snap-meta">Fresh session</span></div>
+          <div class="brief-body" id="brief-snapshot"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══ CHARACTER SEARCHER ═══════════════════════════════════════════ -->
+  <div class="find-overlay" id="find-overlay" hidden>
+    <div class="find-backdrop" data-find-close aria-hidden="true"></div>
+    <section class="find-panel" id="find-panel" role="dialog" aria-modal="true" aria-labelledby="find-title" tabindex="-1">
+      <header class="find-head">
+        <div>
+          <span class="kicker">Scouting desk · roster index</span>
+          <h2 id="find-title">Find a fighter</h2>
+        </div>
+        <div class="find-head-side">
+          <span class="find-file-total" id="find-total">618 on file</span>
+          <button class="icon-btn" type="button" data-find-close title="Close the searcher" aria-label="Close the character searcher">×</button>
+        </div>
+      </header>
+
+      <div class="find-bar">
+        <label class="find-field" for="find-input">
+          <span class="picker-glyph" aria-hidden="true">⌕</span>
+          <input id="find-input" type="search" autocomplete="off" spellcheck="false" placeholder="Name, series or signature…" aria-label="Search every fighter by name, series or signature">
+        </label>
+        <div class="find-filters" role="group" aria-label="Filter roster source">
+          <button type="button" class="find-filter is-active" data-find-source="all">All <i>618</i></button>
+          <button type="button" class="find-filter" data-find-source="main">Main <i>500</i></button>
+          <button type="button" class="find-filter" data-find-source="pool">Pools <i>118</i></button>
+        </div>
+      </div>
+
+      <div class="find-body">
+        <div class="find-results-col">
+          <div class="find-list-meta">
+            <span id="find-note">Featured · highest rarity</span>
+            <span id="find-count">618 on file</span>
+          </div>
+          <div class="find-results" id="find-results" role="group" aria-label="Fighter search results"></div>
+        </div>
+        <div class="find-detail" id="find-detail" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <span>FreeBuff AI · Fight Night Edition · 500 series · 08 rarities · 05 slots · 01 reroll · 00 pity</span>
+    <span>Local build · no accounts · no cloud</span>
+  </footer>
+
+  <script src="js/series.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/portraits.js"></script>
+  <script src="js/rating.js"></script>
+  <script src="js/picker.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/multiplayer.js"></script>
+  <script src="js/analyst.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

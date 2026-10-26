@@ -1,0 +1,509 @@
+Append this precise data array directly into the FreeBuff AI backend as the complete 500 series rolling database. Every roll triggers an independent, completely random lookup across these series.
+
+### ANIME CHARACTER ROSTER DATABASE (COMPREHENSIVE 500 SERIES POOL)
+The game's baseline character rolling pool must consist of iconic figures pulled across exactly 500 distinct anime series, providing the ultimate definitive crossover experience across action shonen, dark fantasy, slice of life, classic masterpieces, giant mainstream hits, and an expansive catalog of Isekai properties:
+1. That Time I Got Reincarnated as a Slime
+2. Re:Zero - Starting Life in Another World
+3. Konosuba: God's Blessing on This Wonderful World!
+4. Mushoku Tensei: Jobless Reincarnation
+5. Overlord
+6. The Rising of the Shield Hero
+7. The Eminence in Shadow
+8. Saga of Tanya the Evil
+9. No Game No Life
+10. Sword Art Online
+11. Log Horizon
+12. Cautious Hero: The Hero Is Overpowered but Overly Cautious
+13. Grimgar of Fantasy and Ash
+14. Arifureta: From Commonplace to World's Strongest
+15. Uncle from Another World
+16. Reincarnated as a Sword
+17. Tsukimichi: Moonlit Fantasy
+18. Ascendance of a Bookworm
+19. So I'm a Spider, So What?
+20. Campfire Cooking in Another World with My Absurd Skill
+21. One Piece
+22. Dragon Ball Z/Super
+23. Naruto / Boruto
+24. Bleach
+25. Jujutsu Kaisen
+26. My Hero Academia
+27. Hunter x Hunter
+28. One Punch Man
+29. Death Note
+30. Code Geass
+31. Demon Slayer
+32. Attack on Titan
+33. Black Clover
+34. Chainsaw Man
+35. Fullmetal Alchemist
+36. Tokyo Ghoul
+37. Mob Psycho 100
+38. Seven Deadly Sins
+39. Fairy Tail
+40. Vinland Saga
+41. Berserk
+42. Fate/Stay Night
+43. Cyberpunk: Edgerunners
+44. Cyberpunk: Edgerunners Season 2
+45. Neon Genesis Evangelion
+46. Dr. STONE
+47. Assassination Classroom
+48. JoJo's Bizarre Adventure
+49. Solo Leveling
+50. Drifters
+51. Skeleton Knight in Another World
+52. The World's Finest Assassin Gets Reincarnated as an Aristocrat
+53. How Not to Summon a Demon Lord
+54. My Next Life as a Villainess: All Routes Lead to Doom!
+55. Gate
+56. Digimon Adventure
+57. The Twelve Kingdoms
+58. Knight's & Magic
+59. Inuyasha
+60. Kaiju No. 8
+61. Wise Man's Grandchild
+62. The Faraway Paladin
+63. The Wrong Way to Use Healing Magic
+64. Ishura
+65. I'll Become a Villainess Who Goes Down in History
+66. Lord of the Mysteries
+67. Red Ranger Becomes an Adventurer in Another World
+68. Magic Knight Rayearth
+69. The Aristocrat's Otherworldly Adventure
+70. How a Realist Hero Rebuilt the Kingdom
+71. In the Land of Leadale
+72. Harem in the Labyrinth of Another World
+73. Saving 80,000 Gold in Another World for My Retirement
+74. Kyo Kara Maoh
+75. Infinite Dendrogram
+76. Problem Children are Coming from Another World, aren't they?
+77. Wind Breaker
+78. Shangri-La Frontier
+79. Dandadan
+80. The Devil Is a Part-Timer!
+81. The Magical Revolution of the Reincarnated Princess and the Genius Young Lady
+82. I'm in Love with the Villainess
+83. Hell's Paradise
+84. Death March to the Parallel World Rhapsody
+85. Handyman Saitou in Another World
+86. Tenchi Muyo! War on Geminar
+87. Am I Actually the Strongest?
+88. Oshi no Ko
+89. My Unique Skill Makes Me OP even at Level 1
+90. Reborn as a Vending Machine, I Now Wander the Dungeon
+91. The Great Cleric
+92. Black Summoner
+93. My Isekai Life
+94. The Parallel World Chronicles of a Reincarnated Aristocrat
+95. I've Been Killing Slimes for 300 Years and Maxed Out My Level
+96. Seirei Gensouki: Spirit Chronicles
+97. Combatants Will Be Dispatched!
+98. High School Prodigies Have It Easy Even In Another World
+99. Outbreak Company
+100. Restaurant to Another World
+101. Isekai Quartet
+102. Yu Yu Hakusho
+103. Sailor Moon
+104. Rurouni Kenshin
+105. Cowboy Bebop
+106. Gintama
+107. Soul Eater
+108. Gurren Lagann
+109. Kill la Kill
+110. Fire Force
+111. Blue Exorcist
+112. Noragami
+113. Bungo Stray Dogs
+114. Durarara!!
+115. Akame ga Kill!
+116. Tokyo Avengers
+117. Sakamoto Days
+118. Parasyte -the maxim-
+119. Psycho-Pass
+120. Steins;Gate
+121. Monster
+122. Erased
+123. Death Parade
+124. Deadman Wonderland
+125. Mirai Nikki (Future Diary)
+126. Another
+127. Elfen Lied
+128. Highschool of the Dead
+129. Hellsing Ultimate
+130. Claymore
+131. D.Gray-man
+132. Saint Seiya
+133. Fist of the North Star
+134. Yu-Gi-Oh! Duel Monsters
+135. Beyblade
+136. Bakugan Battle Brawlers
+137. Pokémon
+138. Zatch Bell!
+139. Shaman King
+140. Magi: The Labyrinth of Magic
+141. Blue Lock
+142. Haikyu!!
+143. Kuroko's Basketball
+144. Hajime no Ippo
+145. Baki the Grappler
+146. Kengan Ashura
+147. Record of Ragnarok
+148. Initial D
+149. SK8 the Infinity
+150. Free! - Iwatobi Swim Club
+151. Chihayafuru
+152. Food Wars! Shokugeki no Soma
+153. Toradora!
+154. Kaguya-sama: Love is War
+155. Horimiya
+156. My Dress-Up Darling
+157. Oregairu
+168. Clannad
+159. Your Lie in April
+160. Anohana: The Flower We Saw That Day
+161. Violet Evergarden
+162. Fruits Basket
+163. Ouran High School Host Club
+164. Maid Sama!
+165. Kamisama Kiss
+166. Blue Spring Ride
+167. Nana
+168. Rascal Does Not Dream of Bunny Girl Senpai
+169. Monogatari Series
+170. To Your Eternity
+171. Made in Abyss
+172. The Promised Neverland
+173. Land of the Lustrous
+174. Seraph of the End
+175. Dororo
+176. Goblin Slayer
+177. Kingdom
+178. Golden Kamuy
+179. Ghost in the Shell: Stand Alone Complex
+180. Guilty Crown
+181. Darling in the Franxx
+182. Eureka Seven
+183. Mobile Suit Gundam: Iron-Blooded Orphans
+184. Mobile Suit Gundam SEED
+185. Macross Frontier
+186. Aldnoah.Zero
+187. Great Teacher Onizuka (GTO)
+188. The Disastrous Life of Saiki K.
+189. Nichijou (My Ordinary Life)
+190. Daily Lives of High School Boys
+191. Grand Blue Dreaming
+192. Mashle: Magic and Muscles
+193. Frieren: Beyond Journey's End
+194. Fluffy Paradise
+195. The Weakest Tamer Began a Journey to Pick Up Trash
+196. Villainess Level 99: I May Be the Hidden Boss but I'm Not the Demon Lord
+197. Doctor Elise: The Royal Lady with the Lamp
+198. Chillin' in Another World with Level 2 Super Cheat Powers
+199. Re:Monster
+200. As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World
+201. Spice and Wolf: Merchant Meets the Wise Wolf
+202. Black Butler
+203. High School DxD
+204. Date A Live
+205. No Game No Life: Zero
+206. Overlord: The Sacred Kingdom
+207. The Apothecary Diaries
+208. Chained Soldier
+209. Metallic Rouge
+210. Sengoku Youko
+211. Ninja Kamui
+212. The Fable
+213. Wistoria: Wand and Sword
+214. Elusive Samurai
+215. Tower of God
+216. God of High School
+217. Noblesse
+218. Viral Hit
+219. Lookism
+220. Wind Breaker (Korean manhwa adaptation)
+221. Giga Bash
+222. Tsukimonogatari
+223. Kizumonogatari
+224. Hanamonogatari
+225. Bakemonogatari
+226. Nisemonogatari
+227. Nekomonogatari
+228. Second Life Ranker
+229. The New Gate
+230. Quality Assurance in Another World
+231. A Journey Through Another World: Raising Kids While Adventuring
+232. Bye Bye, Earth
+233. No Longer Allowed in Another World
+234. Isekai Onsen Paradise
+235. Dungeon Meshi (Delicious in Dungeon)
+236. Plunderer
+237. Darwin's Game
+238. Gleipnir
+239. Tower of God Season 2
+240. .hack//Sign
+241. .hack//Roots
+242. Ixion Saga DT
+243. Outlaw Star
+244. Trigun
+245. Trigun Stampede
+246. Blood Blockade Battlefront
+247. Space Dandy
+248. Outside of Space
+249. Kabaneri of the Iron Fortress
+250. Owari no Seraph
+251. Charlotte
+252. Angel Beats!
+253. Clannad After Story
+254. Air
+255. Kanon
+256. Little Busters!
+257. The Melancholy of Haruhi Suzumiya
+258. Lucky Star
+259. K-On!
+260. Hyouka
+261. Tamako Market
+262. Beyond the Boundary
+263. Sound! Euphonium
+264. Violet Evergarden: The Movie
+265. Liz and the Blue Bird
+266. A Silent Voice
+267. Your Name
+268. Weathering With You
+269. Suzume
+270. 5 Centimeters per Second
+271. The Garden of Words
+272. Children Who Chase Lost Voices
+273. Summer Wars
+274. The Girl Who Leapt Through Time
+275. Wolf Children
+276. Mirai
+277. Belle
+278. Promare
+279. Redline
+280. Akira
+281. Ghost in the Shell (1995)
+282. Ninja Scroll
+283. Vampire Hunter D: Bloodlust
+284. Princess Mononoke
+285. Spirited Away
+286. My Neighbor Totoro
+287. Castle in the Sky
+288. Nausicaä of the Valley of the Wind
+289. Howl's Moving Castle
+290. Porco Rosso
+291. Kiki's Delivery Service
+292. Whisper of the Heart
+293. The Secret World of Arrietty
+294. The Tale of the Princess Kaguya
+295. When Marnie Was There
+296. The Boy and the Heron
+297. Kuroshitsuji: Public School Arc
+298. Date A Live V
+299. High Card
+300. The Witch and the Beast
+301. Tsukimichi -Moonlit Fantasy- Season 2
+302. High Card Season 2
+303. Bucchigiri?!
+304. Shaman King Flowers
+305. Meiji Gekken: 1874
+306. Kingdom Season 5
+307. Sengoku Youko: Yo Na Ko-hen
+308. Urusei Yatsura (2022) Season 2
+309. Delusional Monthly Magazine
+310. Chibi Maruko-chan
+311. Sazae-san
+312. Doraemon
+313. Natsume's Book of Friends
+314. Gintama'
+315. Gintama: Enchousen
+316. Gintama°
+317. Gintama.
+318. Legend of the Galactic Heroes
+319. Ping Pong the Animation
+320. Great Pretender
+321. Great Pretender Razbliuto
+322. Link Click
+323. Link Click Season 2
+324. Fog Hill of Five Elements
+325. Mo Dao Zu Shi (Grandmaster of Demonic Cultivation)
+326. Heaven Official's Blessing
+327. Heaven Official's Blessing Season 2
+328. Scissor Seven
+329. The King's Avatar
+330. The Daily Life of the Immortal King
+331. A Will Eternal
+332. Perfect World
+333. Battle Through the Heavens
+334. Soul Land
+335. Throne of Seal
+336. Martial Universe
+337. Stellar Transformations
+338. Swallowed Star
+339. Record of a Mortal's Journey to Immortality
+340. Tales of Demons and Gods
+341. Shrouding the Heavens
+342. Against the Gods
+343. Perfect World Season 2
+344. The Demon Hunter
+345. Big Fish & Begonia
+346. White Snake
+347. Green Snake
+348. New Gods: Nezha Reborn
+349. New Gods: Yang Jian
+350. Jiang Ziya
+351. The Legend of Hei
+352. Ne Zha (2019)
+353. Deep Sea
+354. I Am What I Am
+355. Toonami Immortals
+356. Afro Samurai
+357. Afro Samurai: Resurrection
+358. Black Lagoon
+359. Black Lagoon: The Second Barrage
+360. Black Lagoon: Roberta's Blood Trail
+361. Jormungand
+362. Jormungand: Perfect Order
+363. Canaan
+364. Phantom: Requiem for the Phantom
+365. Gungrave
+366. Gungrave G.O.R.E.
+367. Devil May Cry (2007)
+368. Castlevania
+369. Castlevania: Nocturne
+370. Blood of Zeus
+371. DOTA: Dragon's Blood
+372. Arcane: League of Legends
+373. Dragon Age: Absolution
+374. Tekken: Bloodline
+375. Street Fighter II: The Animated Movie
+376. Fatal Fury: The Motion Picture
+377. Vampire Hunter D (1985)
+378. Wicked City
+379. Demon City Shinjuku
+380. Cyber City Oedo 808
+381. Genocyber
+382. Bubblegum Crisis
+383. Bubblegum Crash
+384. AD Police Files
+385. Parasite Dolls
+386. Armitage III
+387. Battle Angel Alita (Gunnm)
+388. Megazone 23
+389. Patlabor: The Movie
+390. Patlabor 2: The Movie
+391. WXIII: Patlabor the Movie 3
+392. Jin-Roh: The Wolf Brigade
+393. The Sky Crawlers
+394. Royal Space Force: The Wings of Honneamise
+395. Gunbuster
+396. Diebuster
+397. FLCL
+398. FLCL Progressive
+399. FLCL Alternative
+400. FLCL Grunge
+401. FLCL Shoegaze
+402. Dead Leaves
+403. Panty & Stocking with Garterbelt
+404. Space Patrol Luluco
+405. BNA: Brand New Animal
+406. SSSS.Gridman
+407. SSSS.Dynazenon
+408. Gridman Universe
+409. Darling in the Franxx Season 2
+410. Kiznaiver
+411. Inou-Battle within Everyday Life
+412. Space Dandy Season 2
+413. Terror in Resonance
+414. Kids on the Slope
+415. Yuri!!! on Ice
+416. Banana Fish
+417. Given
+418. Sk8 the Infinity OVA
+419. Run with the Wind
+420. Welcome to the Ballroom
+421. Stars Align
+422. Megalobox
+423. Nomad: Megalobox 2
+424. Ashita no Joe
+425. Ashita no Joe 2
+426. Slam Dunk
+427. Diamond no Ace (Ace of Diamond)
+428. Ace of Diamond: Act II
+429. Major
+430. Major 2nd
+431. Yowamushi Pedal
+432. Yowamushi Pedal: Grande Road
+433. Yowamushi Pedal: New Generation
+434. Yowamushi Pedal: Glory Line
+435. Yowamushi Pedal: Limit Break
+436. Baby Steps
+437. Ping Pong The Animation Season 2
+438. One Outs
+439. Eyeshield 21
+440. Prince of Tennis
+441. New Prince of Tennis
+442. Chihayafuru 2
+443. Chihayafuru 3
+444. March Comes in Like a Lion
+445. March Comes in Like a Lion Season 2
+446. Honey and Clover
+447. Honey and Clover II
+448. Nodame Cantabile
+449. Nodame Cantabile: Paris-hen
+450. Nodame Cantabile: Finale
+451. Beck: Mongolian Chop Squad
+452. Nana Season 2
+453. Paradise Kiss
+454. Kids on the Slope Season 2
+455. Carole & Tuesday
+456. Macross Delta
+457. Macross Delta Movie: Passionate Walküre
+458. Macross Delta Movie: Absolute Live!!!!!!
+459. Macross Plus
+460. Macross Zero
+461. Mobile Suit Gundam Wing
+462. Mobile Suit Gundam 00
+463. Mobile Suit Gundam: The Witch from Mercury
+464. Mobile Suit Gundam: The Witch from Mercury Season 2
+465. Mobile Suit Gundam Hathaway
+466. Mobile Suit Gundam Thunderbolt
+467. Mobile Suit Gundam Unicorn
+468. Mobile Suit Gundam Narrative
+469. Mobile Suit Gundam NT
+470. Code Geass: Akito the Exiled
+471. Code Geass: Rozé of the Recapture
+472. Guilty Crown Lost Christmas
+473. Valvrave the Liberator
+474. Cross Ange: Rondo of Angel and Dragon
+475. RahXephon
+476. The Big O
+477. Blue Gender
+478. Martian Successor Nadesico
+479. Full Metal Panic!
+480. Full Metal Panic? Fumoffu
+481. Full Metal Panic! The Second Raid
+482. Full Metal Panic! Invisible Victory
+483. Eureka Seven AO
+484. Eureka Seven: Hi-Evolution
+485. Anemone: Eureka Seven Hi-Evolution
+486. Eureka: Eureka Seven Hi-Evolution
+487. Star Driver
+488. Captain Earth
+489. Aquarion
+490. Aquarion Evol
+491. Aquarion Logos
+492. Sousei no Aquarion
+493. Noein: To Your Other Self
+494. Bokurano
+495. Genesis of Aquarion
+496. Linebarrels of Iron
+497. Heroic Age
+498. Fafner in the Azure
+499. Fafner in the Azure: Dead Aggressor
+500. Fafner in the Azure: Heaven and Earth
+
+
+EXTRA CONFIGURATION VALUES
+
+• Calculation Weighting: When comparing stats, "X*" beats "X", "X" beats "SSS+", and so forth down the line. If a character triggers the "under 50 score penalty" due to improper stat placement, that slot value evaluates strictly as an "E" rank value during the Tab 2 match calculation, giving the opponent an automatic mechanical advantage.

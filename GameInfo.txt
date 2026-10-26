@@ -1,0 +1,46 @@
+Act as a game engine backend for an interactive web game called "FreeBuff AI: Anime Character Builder & Battler." Render a sleek, modern UI with a clean dark theme, clear distance indicators, and smooth transitions. The application must feature exactly two tabs, initialized to Tab 1.
+
+### TAB 1: [FOR FUN] CHARACTER BUILDER (ROULETTE MODE)
+- Purpose: A sandbox mode where users build a custom anime character by rolling random actual anime characters from a pool and assigning them to specific stat slots.
+- UI Layout: 
+  - Center Display: A prominent "VS" layout showing the user's completed character card face-to-face against an opposing character card.
+  - Left Panel (User Character Stats): Exactly five slots corresponding to the core stats. Each slot must display the assigned character's thumbnail profile, name, their tier rank letter, and their explicit card rarity type prominently underneath:
+    1. Strength 💪
+    2. Speed 💨
+    3. Abilities ⚡
+    4. IQ 🧠
+    5. Durability 🛡️
+  - Right Panel (Opponent / Enemy Profile): Displays the opposing character's five core stats with their assigned characters, card rarities, and respective tier ranks. No steal functionality or override mechanics are present.
+
+- Core Mechanics & Randomization: 
+  - No manual point allocation. Users use a "Gacha/Roll" element to draw a random actual anime character.
+  - The character picks are entirely random with absolutely no guarantees. Every individual roll operates on pure random selection from the global character pool, meaning players are never guaranteed to hit a specific rarity, character, or optimal stat match on any given pull.
+  - Upon rolling a character, the character card reveals an inherent rarity trait. The user then chooses which of the five available stat slots to lock that character into. 
+  - Each player receives exactly 1 free reroll per building session to replace an unfavorable draw.
+
+- Anti-Mismatched Stat Penalty: Characters who are incredibly powerful but assigned to a stat slot that does not line up with their canonical best traits will suffer a massive penalty. Regardless of how high their card rarity is (even Divine or Secret), if a character is placed in an attribute completely unsuited to them, that specific slot performance will drop massively, locking their overall score contribution under 50.
+
+- Card Rarity & Color System: Every rolled anime character belongs to a strict, color-coded rarity tier that directly dictates base stat performance boundaries. The UI borders, background highlights, or text tags for each card must strictly follow this exact color scheme and progression from lowest to highest:
+  - Common ➡️ Gray
+  - Uncommon ➡️ Green
+  - Rare ➡️ Blue
+  - Epic ➡️ Purple
+  - Legendary ➡️ Gold
+  - Mythical ➡️ Red
+  - Divine ➡️ Yellow Silver
+  - Secret ➡️ Dark Black
+
+- Tier Ranking System: Every actual anime character assigned to a stat displays a strict performance tier rank letter based on their canonical capabilities. The tier ranking scale must strictly follow this exact progression from lowest to highest:
+  - E ➡️ C ➡️ B ➡️ A ➡️ S ➡️ SS ➡️ SSS ➡️ SSS+ ➡️ X
+
+- Perfect Optimization Bonus (*): If a user assigns an anime character to their absolute lore-accurate peak attribute slot (e.g., locking Light Yagami or Lelouch into the IQ slot, or Saitama into Strength), they receive a perfect placement bonus. This appends a visual asterisk symbol ("*") directly after the tier rank letter (e.g., "X*" or "SSS+*") and increases that stat's combat multiplier.
+
+- Transformation Mode: Include an "Awakening Mode" toggle. When activated, it scales up the performance values of the assigned tiers and grants one distinct passive buff (e.g., scaling up a character's Speed tier) based on the core theme of the character's primary visual aesthetic, without messy visual clutter or chaotic aura effects.
+
+### TAB 2: VERSUS AI MATCHUP COMPARATOR
+- Purpose: A statistical compare-and-contrast interface where the user's final character profile squares off against an AI card layout in a numbers game.
+- Matchup Rules:
+  - There is no active fighting simulator. The entire confrontation is calculated instantly based on a point comparison of the five attributes. The card with the higher overall score across the stats wins the matchup.
+  - The final combat feed prints a breakdown comparing each slot side-by-side (e.g., "Strength: User E vs AI S - AI Wins Point", "IQ: User X* vs AI A - User Wins Point"), giving an immediate visual scoreboard summary instead of turn-based action steps.
+
+Present a clean, fully functional interactive simulator using standard web components, preserving all mechanical limitations, balance variables, and aesthetic constraints specified. Do not include any source code tutorials or unprompted technical explanations.

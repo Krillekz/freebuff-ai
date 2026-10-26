@@ -1,0 +1,64 @@
+{
+  "name": "freebuff-ai",
+  "productName": "FreeBuff AI",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FreeBuff AI: Anime Character Builder & Battler - Fight Night Edition. Roll five, file them blind, then rate the deck, fight the AI, challenge a friend or put two fighters in front of the analyst.",
+  "author": {
+    "name": "Krillekz"
+  },
+  "license": "MIT",
+  "main": "desktop/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "icon": "node build/make-icon.js",
+    "build:win": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.krillekz.freebuffai",
+    "productName": "FreeBuff AI",
+    "copyright": "FreeBuff AI - Fight Night Edition",
+    "asar": false,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "desktop/**/*",
+      "js/**/*",
+      "css/**/*",
+      "index.html",
+      "server.js",
+      "Animes.txt",
+      "GameInfo.txt",
+      "ReadMe.txt"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "FreeBuff-AI-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FreeBuff AI",
+      "uninstallDisplayName": "FreeBuff AI (Fight Night Edition)",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
