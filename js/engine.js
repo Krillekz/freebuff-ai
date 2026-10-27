@@ -224,13 +224,50 @@
     return POOL.filter(function (c) { return c.rarity === r; }).length;
   });
 
-  FB.randomCharacter = function (excludeIds) {
+  /* A draft can be locked to one series. Curated series bring their own
+     showcase roster; anything else falls back to the single champion that
+     series has on file, which is why the builder only offers series that can
+     actually fill five slots. */
+  FB.draftPool = function (series) {
+    if (!series) return POOL;
+    var curated = MODE_BY_SERIES[series];
+    if (curated) return curated;
+    return POOL.filter(function (c) { return c.series === series; });
+  };
+
+  /* Every series on file with the number of fighters a draft could pull from
+     it, memoised because the picker renders all 500 rows. */
+  var CATALOG = null;
+  FB.seriesCatalog = function () {
+    if (CATALOG) return CATALOG;
+    var seen = {};
+    var list = [];
+    POOL.forEach(function (c) {
+      if (seen[c.series]) return;
+      seen[c.series] = true;
+      var count = FB.draftPool(c.series).length;
+      list.push({ series: c.series, count: count, draftable: count >= 5 });
+    });
+    Object.keys(MODE_BY_SERIES).forEach(function (series) {
+      if (seen[series]) return;
+      seen[series] = true;
+      var count = MODE_BY_SERIES[series].length;
+      list.push({ series: series, count: count, draftable: count >= 5 });
+    });
+    list.sort(function (a, b) { return a.series.localeCompare(b.series); });
+    CATALOG = list;
+    return CATALOG;
+  };
+  FB.draftableCount = function () {
+    return FB.seriesCatalog().filter(function (s) { return s.draftable; }).length;
+  };
+
+  FB.randomCharacter = function (excludeIds, series) {
     var skip = excludeIds || {};
-    for (var attempt = 0; attempt < 60; attempt++) {
-      var c = POOL[Math.floor(Math.random() * POOL.length)];
-      if (!skip[c.id]) return c;
-    }
-    return POOL[Math.floor(Math.random() * POOL.length)];
+    var pool = FB.draftPool(series);
+    var open = pool.filter(function (c) { return !skip[c.id]; });
+    if (!open.length) return pool[Math.floor(Math.random() * pool.length)];
+    return open[Math.floor(Math.random() * open.length)];
   };
 
   /* ---------- scoring ---------- */

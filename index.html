@@ -5,33 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FreeBuff AI — Fight Night Edition</title>
   <meta name="description" content="A 500-series anime draft room. Roll five, file them blind, then rate the deck, fight the AI, challenge a friend, or put any two characters in front of the analyst.">
-  <meta name="theme-color" content="#07090b">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c8ff3d'/%3E%3Cpath d='M7 25V7h15l-3 5H12v3h6l-2.5 5H12v5z' fill='%2307090b'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#09090a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f2f2f0'/%3E%3Cpath d='M9 24V8h14l-2.9 5.1h-6.2v3h5.7L17 21.2h-3.1V24z' fill='%2309090a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the desk</a>
-  <div class="screen" aria-hidden="true"></div>
-  <div class="scan" aria-hidden="true"></div>
   <p class="sr-only" id="announcer" aria-live="polite"></p>
 
   <header class="top">
-    <div class="top-bar">
-      <a class="brand" href="#" aria-label="FreeBuff AI, home">
-        <span class="brand-mark" aria-hidden="true">F</span>
-        <span class="brand-word">FREEBUFF</span>
-        <span class="brand-ai">AI</span>
-        <span class="brand-show">FIGHT NIGHT<br>EDITION 2026</span>
-      </a>
-      <div class="top-right">
-        <span class="onair"><i aria-hidden="true"></i>ON AIR</span>
-        <span class="top-session">DRAWN <b id="tel-session">00</b></span>
-        <span class="top-server" id="server-status">SERVER · CHECKING</span>
-      </div>
-    </div>
+    <a class="brand" href="#" aria-label="FreeBuff AI, home">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span class="brand-word">Freebuff</span>
+      <span class="brand-ai">AI</span>
+      <span class="brand-show">Fight Night · 2026</span>
+    </a>
 
     <nav class="nav" aria-label="Sections">
       <div class="tabs" role="tablist" aria-label="FreeBuff AI sections">
@@ -51,23 +42,21 @@
           <span class="tab-no">05</span><span class="tab-dot"></span><span class="tab-label">Analyst Desk</span>
         </button>
       </div>
-      <div class="nav-tools">
-        <button class="nav-find" id="find-open" type="button" aria-haspopup="dialog" aria-controls="find-overlay" aria-expanded="false" aria-keyshortcuts="/" aria-label="Open the character searcher">
-          <span aria-hidden="true">⌕</span><span class="nav-find-label">Find</span><kbd>/</kbd>
-        </button>
-        <button class="switch" id="awake-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle the awakening buff">
-          <span class="switch-box" aria-hidden="true"></span>
-          <span class="switch-label">Awakening <span id="awake-state">OFF</span></span>
-        </button>
-      </div>
     </nav>
 
-    <div class="ticker" aria-hidden="true">
-      <span><b>Roster</b><i id="tel-roster">500</i></span>
-      <span><b>Sealed</b><i id="tel-deck">00 / 05</i></span>
-      <span><b>Rerolls</b><i id="tel-rerolls">1</i></span>
-      <span><b>Pity</b><i>00</i></span>
-      <span class="ticker-last"><b>Deck</b><i id="ticker-deck">UNRATED</i></span>
+    <div class="nav-tools">
+      <button class="nav-find" id="find-open" type="button" aria-haspopup="dialog" aria-controls="find-overlay" aria-expanded="false" aria-keyshortcuts="/" aria-label="Open the character searcher">
+        <span class="nav-find-glyph" aria-hidden="true">⌕</span><span class="nav-find-label">Find a fighter</span><kbd>/</kbd>
+      </button>
+      <button class="switch" id="awake-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle the awakening buff">
+        <span class="switch-box" aria-hidden="true"></span>
+        <span class="switch-label">Awakening <span id="awake-state">OFF</span></span>
+      </button>
+    </div>
+
+    <div class="top-right">
+      <span class="top-server" id="server-status">Checking relay</span>
+      <span class="top-session">Drawn <b id="tel-session">00</b></span>
     </div>
   </header>
 
@@ -81,28 +70,57 @@
           <h1>Character Builder</h1>
         </div>
         <div class="rundown-side">
-          <span class="live-tag">Board open</span>
-          <span class="rundown-metric">500 series · 05 slots · 01 reroll · 00 pity</span>
+          <span class="live-tag" id="builder-tag">Board open</span>
+          <span class="rundown-metric" id="builder-metric">500 series · 05 slots · 01 reroll · 00 pity</span>
         </div>
       </div>
 
-      <div class="builder">
-        <section class="panel deck-panel" aria-labelledby="deck-title">
-          <div class="panel-head">
-            <span class="panel-no">A</span>
-            <h2 id="deck-title">Your Core</h2>
-            <span class="panel-meta" id="user-count">00 / 05 filed</span>
-          </div>
-          <div class="slot-list" id="deck-list"></div>
-          <div class="total-bar">
-            <span>Output total</span>
-            <b id="total-now">000</b>
-          </div>
-        </section>
+      <div class="statline">
+        <span><b id="tel-roster">500</b> series on file</span>
+        <span><b id="tel-deck">00 / 05</b> filed</span>
+        <span><b id="tel-rerolls">1</b> reroll</span>
+        <span class="statline-grade" id="ticker-deck">Unrated</span>
+      </div>
 
+      <section class="pool-bar" id="pool-bar" aria-label="Draft pool">
+        <div class="pool-row">
+          <span class="pool-label">Draft pool</span>
+          <div class="pool-modes" role="radiogroup" aria-label="Draft pool mode">
+            <button class="pool-btn is-active" type="button" role="radio" aria-checked="true" data-pool-mode="random">
+              <span class="pool-btn-name">Random</span>
+              <span class="pool-btn-sub">every series</span>
+            </button>
+            <button class="pool-btn" type="button" role="radio" aria-checked="false" data-pool-mode="series">
+              <span class="pool-btn-name">Series lock</span>
+              <span class="pool-btn-sub">one anime only</span>
+            </button>
+          </div>
+
+          <div class="pool-picker" id="pool-picker" hidden>
+            <button class="pool-current" type="button" id="pool-current" aria-haspopup="listbox" aria-expanded="false" aria-controls="pool-list">
+              <span class="pool-current-name" id="pool-current-name">Choose an anime</span>
+              <span class="pool-current-count" id="pool-current-count">20 draftable</span>
+              <span class="pool-caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="pool-menu" id="pool-menu" hidden>
+              <label class="pool-search">
+                <span class="sr-only">Search anime</span>
+                <input id="pool-search" type="search" autocomplete="off" spellcheck="false" placeholder="Search 500 anime…" aria-controls="pool-list">
+              </label>
+              <div class="pool-list" id="pool-list" role="listbox" aria-label="Anime with a draftable roster"></div>
+              <p class="pool-hint" id="pool-hint">20 anime have five or more fighters on file. Switching pool starts a new session.</p>
+            </div>
+          </div>
+
+          <p class="pool-note" id="pool-note">Every draw comes from all 500 series.</p>
+          <span class="pool-meta" id="pool-meta">Random · 500 series</span>
+        </div>
+      </section>
+
+      <div class="builder">
         <section class="panel draft-panel" aria-labelledby="board-title">
           <div class="panel-head">
-            <span class="panel-no">B</span>
+            <span class="panel-no">A</span>
             <h2 id="board-title">The Board</h2>
             <span class="panel-meta" id="stage-meta">Awaiting pull</span>
             <div class="head-right">
@@ -113,6 +131,19 @@
           <div class="stage-foot">
             <div class="dist" id="dist"></div>
             <div class="keyhints"><span><kbd>R</kbd> Roll</span><span><kbd>W</kbd> Reroll</span><span><kbd>1</kbd>–<kbd>5</kbd> File</span></div>
+          </div>
+        </section>
+
+        <section class="panel deck-panel" aria-labelledby="deck-title">
+          <div class="panel-head">
+            <span class="panel-no">B</span>
+            <h2 id="deck-title">Your Core</h2>
+            <span class="panel-meta" id="user-count">00 / 05 filed</span>
+          </div>
+          <div class="slot-list" id="deck-list"></div>
+          <div class="total-bar">
+            <span>Output total</span>
+            <b id="total-now">000</b>
           </div>
         </section>
       </div>
@@ -237,11 +268,11 @@
 
           <aside class="chat-rail">
             <section class="panel rail-panel" aria-labelledby="suggest-title">
-              <div class="panel-head"><span class="panel-no">1</span><h2 id="suggest-title">Try asking</h2></div>
+              <div class="panel-head"><h2 id="suggest-title">Try asking</h2></div>
               <div class="suggest" id="chat-suggest"></div>
             </section>
             <section class="panel rail-panel" aria-labelledby="snapshot-title">
-              <div class="panel-head"><span class="panel-no">2</span><h2 id="snapshot-title">Desk snapshot</h2></div>
+              <div class="panel-head"><h2 id="snapshot-title">Desk snapshot</h2></div>
               <div class="snapshot" id="chat-snapshot"></div>
             </section>
           </aside>
@@ -251,13 +282,13 @@
       <div class="ana-view" id="ana-who" role="tabpanel" aria-labelledby="subtab-who" hidden>
         <div class="who-grid">
           <section class="panel who-panel" aria-labelledby="who-a-title">
-            <div class="panel-head"><span class="panel-no">A</span><h2 id="who-a-title">Red corner</h2><span class="panel-meta">Challenger</span></div>
+            <div class="panel-head"><h2 id="who-a-title">Red corner</h2><span class="panel-meta">Challenger</span></div>
             <div class="pick-bar-row" id="who-picker-a"></div>
             <div class="who-card" id="who-card-a"></div>
           </section>
           <div class="who-medal" aria-hidden="true">VS</div>
           <section class="panel who-panel" aria-labelledby="who-b-title">
-            <div class="panel-head"><span class="panel-no">B</span><h2 id="who-b-title">Blue corner</h2><span class="panel-meta">Challenger</span></div>
+            <div class="panel-head"><h2 id="who-b-title">Blue corner</h2><span class="panel-meta">Challenger</span></div>
             <div class="pick-bar-row" id="who-picker-b"></div>
             <div class="who-card" id="who-card-b"></div>
           </section>
@@ -274,7 +305,7 @@
       <div class="ana-view" id="ana-brief" role="tabpanel" aria-labelledby="subtab-brief" hidden>
         <div class="brief-grid">
           <section class="panel brief-panel" aria-labelledby="brief-rules-title">
-            <div class="panel-head"><span class="panel-no">1</span><h2 id="brief-rules-title">The rulebook</h2></div>
+            <div class="panel-head"><h2 id="brief-rules-title">The rulebook</h2></div>
             <div class="brief-body">
               <p><b>Five slots, five attributes.</b> Each pulled character belongs on exactly one line: Strength, Speed, Abilities, IQ or Durability.</p>
               <ul class="brief-list">
@@ -287,7 +318,7 @@
           </section>
 
           <section class="panel brief-panel" aria-labelledby="brief-odds-title">
-            <div class="panel-head"><span class="panel-no">2</span><h2 id="brief-odds-title">Live pull odds</h2><span class="panel-meta">8 bands</span></div>
+            <div class="panel-head"><h2 id="brief-odds-title">Live pull odds</h2><span class="panel-meta">8 bands</span></div>
             <div class="brief-body">
               <div class="odds-list" id="brief-odds"></div>
               <p class="micro">Eight bands. Every roll is uniform across the 500 series; the printed bands are the share of the pool that lands there. There is no pity counter and no weighted table.</p>
@@ -295,7 +326,7 @@
           </section>
 
           <section class="panel brief-panel" aria-labelledby="brief-how-title">
-            <div class="panel-head"><span class="panel-no">3</span><h2 id="brief-how-title">How to build</h2></div>
+            <div class="panel-head"><h2 id="brief-how-title">How to build</h2></div>
             <div class="brief-body">
               <p><b>Read the card, not the colour.</b> The rarity tag is a hint, not a guarantee — a low band with a peak on a rare attribute can carry a slot.</p>
               <ul class="brief-list">
@@ -309,7 +340,7 @@
         </div>
 
         <section class="panel brief-snapshot" aria-labelledby="brief-snap-title">
-          <div class="panel-head"><span class="panel-no">4</span><h2 id="brief-snap-title">Current desk</h2><span class="panel-meta" id="brief-snap-meta">Fresh session</span></div>
+          <div class="panel-head"><h2 id="brief-snap-title">Current desk</h2><span class="panel-meta" id="brief-snap-meta">Fresh session</span></div>
           <div class="brief-body" id="brief-snapshot"></div>
         </section>
       </div>
@@ -322,7 +353,7 @@
     <section class="find-panel" id="find-panel" role="dialog" aria-modal="true" aria-labelledby="find-title" tabindex="-1">
       <header class="find-head">
         <div>
-          <span class="kicker">Scouting desk · roster index</span>
+          <span class="kicker">Roster index</span>
           <h2 id="find-title">Find a fighter</h2>
         </div>
         <div class="find-head-side">
@@ -357,7 +388,7 @@
   </div>
 
   <footer class="footer">
-    <span>FreeBuff AI · Fight Night Edition · 500 series · 08 rarities · 05 slots · 01 reroll · 00 pity</span>
+    <span>FreeBuff AI · Fight Night Edition · 500 series · 08 rarities · 05 slots</span>
     <span>Local build · no accounts · no cloud</span>
   </footer>
 

@@ -404,18 +404,9 @@
       '<div id="room-head"></div>' +
       '<div class="live-rivals" id="room-players"></div>' +
       '<div class="builder live-builder" id="live-board">' +
-        '<section class="panel deck-panel" aria-labelledby="live-deck-title">' +
-          '<div class="panel-head">' +
-            '<span class="panel-no">A</span>' +
-            '<h2 id="live-deck-title">Your core</h2>' +
-            '<span class="panel-meta" id="live-count">00 / 05 filed</span>' +
-          "</div>" +
-          '<div class="slot-list" id="live-deck"></div>' +
-          '<div class="total-bar"><span>Output total</span><b id="live-total">000</b></div>' +
-        "</section>" +
         '<section class="panel draft-panel" aria-labelledby="live-board-title">' +
           '<div class="panel-head">' +
-            '<span class="panel-no">B</span>' +
+            '<span class="panel-no">A</span>' +
             '<h2 id="live-board-title">The board</h2>' +
             '<span class="panel-meta" id="live-stage-meta">Awaiting pull</span>' +
           "</div>" +
@@ -424,6 +415,15 @@
             '<span class="dist-title" id="live-mode-note">LIVE ROOM</span>' +
             '<div class="keyhints"><span><kbd>R</kbd> Roll</span><span><kbd>W</kbd> Reroll</span><span><kbd>1</kbd>–<kbd>5</kbd> File</span></div>' +
           "</div>" +
+        "</section>" +
+        '<section class="panel deck-panel" aria-labelledby="live-deck-title">' +
+          '<div class="panel-head">' +
+            '<span class="panel-no">B</span>' +
+            '<h2 id="live-deck-title">Your core</h2>' +
+            '<span class="panel-meta" id="live-count">00 / 05 filed</span>' +
+          "</div>" +
+          '<div class="slot-list" id="live-deck"></div>' +
+          '<div class="total-bar"><span>Output total</span><b id="live-total">000</b></div>' +
         "</section>" +
       "</div>" +
       '<div class="room-result" id="room-result"></div>' +

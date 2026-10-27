@@ -11,6 +11,8 @@
 
   var state = {
     tab: "builder",
+    scope: null,          // null = random over the whole roster, else a series name
+    scopeMode: "random",  // random | series
     deck: [null, null, null, null, null],
     offer: null,
     offerSerial: 0,
@@ -172,7 +174,7 @@
   function filledSlot(char, i, m, flash) {
     var sc = FB.scoreSlot(char, KEYS[i], m);
     return '<div class="slot is-filled' + (flash ? " slot-just-locked" : "") + '" style="' + rarityStyle(char.rarity) + '">' +
-      '<div class="slot-art">' + portraitHTML(char, "portrait-slot") + "</div>" +
+      '<div class="slot-art">' + portraitHTML(char, "portrait-slot") + '<span class="slot-code">' + S[i].code + "</span></div>" +
       '<div class="slot-main">' +
         '<span class="slot-name">' + esc(char.name) + "</span>" +
         '<span class="slot-series">' + esc(char.series) + "</span>" +
@@ -209,22 +211,22 @@
       var r1 = long ? 88 : 91;
       var x1 = 120 + Math.cos(a) * r1, y1 = 120 + Math.sin(a) * r1;
       var x2 = 120 + Math.cos(a) * 96, y2 = 120 + Math.sin(a) * 96;
-      ticks += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#eef4ea" stroke-opacity="' + (long ? ".42" : ".17") + '"/>';
+      ticks += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#eaf0f6" stroke-opacity="' + (long ? ".38" : ".16") + '"/>';
     }
     return '<div class="dial">' +
       '<svg viewBox="0 0 240 240" aria-hidden="true">' +
-        '<circle cx="120" cy="120" r="104" fill="none" stroke="#c8ff3d" stroke-opacity=".18"/>' +
-        '<circle cx="120" cy="120" r="70" fill="none" stroke="#c8ff3d" stroke-opacity=".09"/>' +
+        '<circle cx="120" cy="120" r="104" fill="none" stroke="#ff5c45" stroke-opacity=".22"/>' +
+        '<circle cx="120" cy="120" r="70" fill="none" stroke="#ff5c45" stroke-opacity=".12"/>' +
         '<g class="dial-spin">' +
-          '<circle cx="120" cy="120" r="94" fill="none" stroke="#c8ff3d" stroke-opacity=".7" stroke-width="2" stroke-dasharray="118 472" stroke-linecap="round" transform="rotate(-90 120 120)"/>' +
+          '<circle cx="120" cy="120" r="94" fill="none" stroke="#ff5c45" stroke-opacity=".85" stroke-width="2" stroke-dasharray="118 472" stroke-linecap="round" transform="rotate(-90 120 120)"/>' +
         "</g>" +
         '<g class="dial-spin-rev">' + ticks + "</g>" +
-        '<path d="M120 24 216 120 120 216 24 120Z" fill="none" stroke="#c8ff3d" stroke-opacity=".26"/>' +
-        '<path d="M120 52 188 120 120 188 52 120Z" fill="none" stroke="#eef4ea" stroke-opacity=".1"/>' +
+        '<path d="M120 24 216 120 120 216 24 120Z" fill="none" stroke="#ff5c45" stroke-opacity=".3"/>' +
+        '<path d="M120 52 188 120 120 188 52 120Z" fill="none" stroke="#eaf0f6" stroke-opacity=".08"/>' +
       "</svg>" +
       '<div class="dial-core">' +
-        '<span class="dial-num">' + FB.poolCount + "</span>" +
-        '<span class="dial-cap">series in pool</span>' +
+        '<span class="dial-num">' + activePool().length + "</span>" +
+        '<span class="dial-cap">' + (state.scope ? "fighters in " + esc(state.scope) : "series in pool") + "</span>" +
       "</div>" +
     "</div>";
   }
@@ -235,7 +237,9 @@
       '<div class="stage-side">' +
         '<span class="kicker">Slots ' + pad(filled()) + " / 05 — pull phase</span>" +
         '<h3>Roll five.<br>File them <em>blind.</em></h3>' +
-        '<p class="micro">Every pull is an independent lookup across all 500 series. No pity, no guarantees, no reels.</p>' +
+        '<p class="micro">' + (state.scope
+          ? "Every pull is an independent draw from " + esc(state.scope) + " only — " + activePool().length + " fighters on file."
+          : "Every pull is an independent lookup across all 500 series. No pity, no guarantees, no reels.") + "</p>" +
         '<ul class="rule-list">' +
           "<li>Lock each card into <b>one</b> attribute slot</li>" +
           "<li>Canon peaks are <b>never</b> disclosed before the lock</li>" +
@@ -376,12 +380,134 @@
   function renderDist() {
     var el = $("#dist");
     if (!el) return;
-    el.innerHTML = '<span class="dist-title">Gacha pool</span>' +
+    var pool = activePool();
+    var counts = R.map(function (_, i) {
+      return pool.filter(function (c) { return c.rarity === i; }).length;
+    });
+    el.innerHTML = '<span class="dist-title">' + (state.scope ? "Pool bands" : "Gacha pool") + "</span>" +
       R.map(function (r, i) {
-        return '<span class="dist-chip" title="' + r.name + " · " + FB.rarityCounts[i] + " of " + FB.poolCount + ' series">' +
+        return '<span class="dist-chip" title="' + r.name + " · " + counts[i] + " of " + pool.length + ' fighters">' +
           '<i class="dist-dot' + (i === 7 ? " is-secret" : "") + '" style="--c:' + r.color + '" aria-hidden="true"></i>' +
-          r.name.slice(0, 3) + ' <span class="dist-pct">' + (FB.rarityCounts[i] / FB.poolCount * 100).toFixed(1) + "%</span></span>";
+          r.name.slice(0, 3) + ' <span class="dist-pct">' + (pool.length ? (counts[i] / pool.length * 100).toFixed(1) : "0.0") + "%</span></span>";
       }).join("");
+  }
+
+  /* ── draft pool: random or one series ───────────────────────────────── */
+
+  function activePool() {
+    return FB.draftPool ? FB.draftPool(state.scope) : FB.pool;
+  }
+
+  function renderPool() {
+    var bar = $("#pool-bar");
+    if (!bar) return;
+    var picker = $("#pool-picker");
+    if (picker) picker.hidden = state.scopeMode !== "series";
+    var note = $("#pool-note");
+    if (note) note.hidden = state.scopeMode === "series";
+    $$("[data-pool-mode]", bar).forEach(function (btn) {
+      var on = btn.getAttribute("data-pool-mode") === state.scopeMode;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-checked", on ? "true" : "false");
+    });
+
+    var name = $("#pool-current-name");
+    if (name) name.textContent = state.scope || "Choose an anime";
+    var cap = $("#pool-current-count");
+    if (cap) {
+      cap.textContent = state.scope
+        ? activePool().length + " fighters"
+        : (FB.draftableCount ? FB.draftableCount() : 0) + " draftable";
+    }
+
+    var meta = $("#pool-meta");
+    if (meta) {
+      meta.textContent = state.scope
+        ? state.scope + " only · " + activePool().length + " fighters"
+        : "Random · " + FB.poolCount + " series";
+    }
+    var metric = $("#builder-metric");
+    if (metric) {
+      metric.textContent = state.scope
+        ? state.scope + " · " + activePool().length + " fighters · 05 slots · 01 reroll"
+        : FB.poolCount + " series · 05 slots · 01 reroll · 00 pity";
+    }
+    bar.classList.toggle("is-locked", !!state.scope);
+  }
+
+  function renderPoolList() {
+    var list = $("#pool-list");
+    if (!list || !FB.seriesCatalog) return;
+    var input = $("#pool-search");
+    var term = (input && input.value || "").trim().toLowerCase();
+    var rows = FB.seriesCatalog().filter(function (s) {
+      return !term || s.series.toLowerCase().indexOf(term) >= 0;
+    });
+    if (!rows.length) {
+      list.innerHTML = '<p class="pool-empty">No anime matches that search.</p>';
+      return;
+    }
+    var draftable = rows.filter(function (s) { return s.draftable; }).length;
+    list.innerHTML = rows.map(function (s) {
+      var on = state.scope === s.series;
+      return '<button type="button" class="pool-opt' + (s.draftable ? " is-open" : " is-thin") + (on ? " is-active" : "") + '"' +
+        ' role="option" aria-selected="' + (on ? "true" : "false") + '"' +
+        (s.draftable ? "" : " disabled") +
+        ' data-pool-series="' + esc(s.series) + '">' +
+        '<span class="pool-opt-name">' + esc(s.series) + "</span>" +
+        '<span class="pool-opt-count">' + (s.draftable ? s.count + " fighters" : s.count + " fighter · needs 5") + "</span>" +
+      "</button>";
+    }).join("");
+    var hint = $("#pool-hint");
+    if (hint) {
+      hint.textContent = term
+        ? draftable + " of " + rows.length + " matches can host a draft."
+        : (FB.draftableCount ? FB.draftableCount() : 0) + " anime have five or more fighters on file. Switching pool starts a new session.";
+    }
+    var active = list.querySelector(".pool-opt.is-active");
+    if (active && list.scrollHeight > list.clientHeight) {
+      var top = active.offsetTop - list.clientHeight / 2 + active.offsetHeight / 2;
+      list.scrollTop = Math.max(0, top);
+    }
+  }
+
+  function setPoolOpen(open) {
+    var menu = $("#pool-menu");
+    var btn = $("#pool-current");
+    if (!menu || !btn) return;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    $("#pool-bar").classList.toggle("is-open", open);
+    if (!open) return;
+    renderPoolList();
+    var input = $("#pool-search");
+    if (input) { input.value = ""; input.focus(); }
+  }
+
+  function chooseScope(series) {
+    var next = series || null;
+    if (next === state.scope) { setPoolOpen(false); return; }
+    state.scope = next;
+    if (filled() > 0 || state.sealed) resetSession();
+    renderDist();
+    renderPool();
+    renderAll();
+    setPoolOpen(false);
+    announce(next
+      ? "Draft pool locked to " + next + ". New session, " + activePool().length + " fighters available."
+      : "Random pool restored. New session across all " + FB.poolCount + " series.");
+  }
+
+  function setScopeMode(mode) {
+    if (mode === state.scopeMode) { if (mode === "series") setPoolOpen(true); return; }
+    state.scopeMode = mode;
+    if (mode === "random" && state.scope) {
+      chooseScope(null);
+      return;
+    }
+    renderPool();
+    if (mode === "series") setPoolOpen(true);
+    announce(mode === "series" ? "Series lock armed. Pick an anime to draft from." : "Random pool selected.");
   }
 
   function gradeOf() {
@@ -400,6 +526,7 @@
     set("user-count", pad(n) + " / 05 filed");
     set("total-now", pad3(FB.deckTotal(state.deck, m)));
     set("awake-state", state.awake ? "ON" : "OFF");
+    set("builder-tag", state.sealed ? "Deck sealed" : state.offer ? "Card on board" : n ? pad(n) + " of 05 filed" : "Board open");
     set("ticker-deck", rating ? "GRADE " + rating.grade : n ? "BUILDING" : "UNRATED");
     var toggle = $("#awake-toggle");
     if (toggle) toggle.setAttribute("aria-checked", state.awake ? "true" : "false");
@@ -776,7 +903,12 @@
     if (state.sealed || state.offer) return;
     var used = {};
     state.deck.forEach(function (c) { if (c) used[c.id] = true; });
-    state.offer = FB.randomCharacter(used);
+    var pool = activePool();
+    if (!pool.some(function (c) { return !used[c.id]; })) {
+      announce("Every fighter in this pool is on the board. Seal the deck or pick another pool.");
+      return;
+    }
+    state.offer = FB.randomCharacter(used, state.scope);
     state.offerSerial++;
     state.pulls.push({ char: state.offer, slot: null, rerolled: false });
     announce("Rolled " + state.offer.name + " from " + state.offer.series + ". " + rarityName(state.offer.rarity) + " rarity. Peak attribute sealed.");
@@ -788,10 +920,15 @@
     var used = {};
     state.deck.forEach(function (c) { if (c) used[c.id] = true; });
     used[state.offer.id] = true;
+    var pool = activePool();
+    if (!pool.some(function (c) { return !used[c.id]; })) {
+      announce("No unused fighters left in this pool to reroll into.");
+      return;
+    }
     var prior = state.pulls[state.pulls.length - 1];
     if (prior && prior.char.id === state.offer.id && prior.slot == null) prior.rerolled = true;
     state.rerolls--;
-    state.offer = FB.randomCharacter(used);
+    state.offer = FB.randomCharacter(used, state.scope);
     state.offerSerial++;
     state.pulls.push({ char: state.offer, slot: null, rerolled: false });
     announce("Reroll spent. " + state.offer.name + " — " + rarityName(state.offer.rarity) + " rarity.");
@@ -850,6 +987,7 @@
   }
 
   function renderAll() {
+    renderPool();
     renderDeck();
     renderStage();
     renderStatus();
@@ -939,6 +1077,54 @@
 
     var fight = $("#duel-fight");
     if (fight) fight.addEventListener("click", runDuel);
+
+    /* draft pool controls */
+    $$("[data-pool-mode]").forEach(function (btn) {
+      btn.addEventListener("click", function () { setScopeMode(btn.getAttribute("data-pool-mode")); });
+    });
+    var poolCurrent = $("#pool-current");
+    if (poolCurrent) {
+      poolCurrent.addEventListener("click", function () {
+        setPoolOpen($("#pool-menu").hidden);
+      });
+    }
+    var poolSearch = $("#pool-search");
+    if (poolSearch) poolSearch.addEventListener("input", renderPoolList);
+    var poolList = $("#pool-list");
+    if (poolList) {
+      poolList.addEventListener("click", function (e) {
+        var row = e.target.closest("[data-pool-series]");
+        if (!row || row.disabled) return;
+        chooseScope(row.getAttribute("data-pool-series"));
+      });
+    }
+    var poolBar = $("#pool-bar");
+    if (poolBar) {
+      document.addEventListener("click", function (e) {
+        if (!poolBar.classList.contains("is-open")) return;
+        if (poolBar.contains(e.target)) return;
+        setPoolOpen(false);
+      });
+      poolBar.addEventListener("keydown", function (e) {
+        var menu = $("#pool-menu");
+        if (!menu || menu.hidden) return;
+        if (e.key === "Escape") {
+          e.stopPropagation();
+          setPoolOpen(false);
+          poolCurrent.focus();
+          return;
+        }
+        if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+        var opts = Array.prototype.slice.call(poolList.querySelectorAll(".pool-opt.is-open"));
+        if (!opts.length) return;
+        e.preventDefault();
+        var at = opts.indexOf(document.activeElement);
+        var target = e.key === "ArrowDown"
+          ? (at < 0 ? 0 : Math.min(opts.length - 1, at + 1))
+          : (at < 0 ? opts.length - 1 : Math.max(0, at - 1));
+        opts[target].focus();
+      });
+    }
 
     if (FB.portraits) FB.portraits.subscribe(paintPortraits);
 
