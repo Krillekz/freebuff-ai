@@ -974,13 +974,35 @@
       "\n" + lines.join("\n");
   }
 
+  /* Clipboard API first; a temporary selection covers browsers that refuse it
+     outside a focused tab. */
+  function legacyCopy(text) {
+    try {
+      var box = document.createElement("textarea");
+      box.value = text;
+      box.setAttribute("readonly", "");
+      box.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+      document.body.appendChild(box);
+      box.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(box);
+      return ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function copyText(text, okMessage) {
+    var fallback = function () {
+      if (legacyCopy(text)) announce(okMessage);
+      else announce("The browser blocked the clipboard. Select the text and copy it by hand.");
+    };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
         announce(okMessage);
-      }, function () { announce("Clipboard unavailable."); });
+      }, fallback);
     } else {
-      announce("Clipboard unavailable.");
+      fallback();
     }
   }
 
