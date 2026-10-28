@@ -158,7 +158,19 @@
     Array.prototype.forEach.call(buttons, function (btn) { btn.disabled = online === false; });
   }
 
+  /* A static copy (GitHub Pages, or the raw file) has no relay to ask, so the
+     live desk reports offline instead of probing a path that cannot exist. */
+  function noRelayHost() {
+    if (location.protocol === "file:") return true;
+    return /(^|\.)github\.io$/i.test(location.hostname);
+  }
+
   function probe() {
+    if (noRelayHost()) {
+      state.online = false;
+      applyOnline(false);
+      return Promise.resolve(null);
+    }
     return api("/api/health").then(function (body) {
       state.online = true;
       applyOnline(true);
