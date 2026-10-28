@@ -145,6 +145,7 @@
     }
     var banner = $("#mp-offline");
     if (banner) banner.hidden = online !== false;
+    if (online === false) explainOffline();
     var metric = $("#live-metric");
     if (metric) {
       metric.textContent = online === true ? "Local relay · rooms + queue" : online === false ? "Relay offline" : "Checking the relay…";
@@ -163,6 +164,14 @@
   function noRelayHost() {
     if (location.protocol === "file:") return true;
     return /(^|\.)github\.io$/i.test(location.hostname);
+  }
+
+  /* The static copy cannot host a relay, so the banner must not tell people to
+     start a server "in this folder" — there is no folder. */
+  function explainOffline() {
+    var line = document.querySelector("#mp-offline .micro");
+    if (!line || !noRelayHost()) return;
+    line.innerHTML = "This copy is served as static files, so there is no relay behind it. Live rooms need the desktop build, or <strong>node server.js</strong> running from the project folder on your machine.";
   }
 
   function probe() {

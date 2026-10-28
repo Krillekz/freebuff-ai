@@ -16,7 +16,9 @@ var vm = require("vm");
 var crypto = require("crypto");
 
 var ROOT = __dirname;
-var PORT = Number(process.env.PORT) || 8123;
+var ENV_PORT = Number(process.env.PORT) || 0;
+var PORT = ENV_PORT > 0 ? ENV_PORT : 8123;
+var FIXED_PORT = ENV_PORT > 0;
 var HOST = process.env.HOST || "0.0.0.0";
 
 /* ── shared game engine ───────────────────────────────────────────────── */
@@ -540,14 +542,55 @@ setInterval(function () {
   });
 }, 60000);
 
-server.listen(PORT, HOST, function () {
-  console.log("PEAKLINE match server on http://127.0.0.1:" + PORT);
+var announced = false;
+
+function ready(port) {
+  if (announced) return;
+  announced = true;
+  console.log("");
+  console.log("  PEAKLINE relay running");
+  console.log("  Open  http://127.0.0.1:" + port);
   Object.keys(os.networkInterfaces()).forEach(function (name) {
     (os.networkInterfaces()[name] || []).forEach(function (iface) {
       if (iface.family === "IPv4" && !iface.internal) {
-        console.log("  LAN: http://" + iface.address + ":" + PORT);
+        console.log("  LAN   http://" + iface.address + ":" + port);
       }
     });
   });
-  console.log("  Modes: " + (FB.MODES || []).map(function (m) { return m.series + " (" + m.count + ")"; }).join(" · "));
-});
+  console.log("  Modes " + (FB.MODES || []).map(function (m) { return m.series + " (" + m.count + ")"; }).join(" · "));
+  console.log("");
+  console.log("  Leave this window open while you draft. Ctrl+C stops the relay.");
+  console.log("");
+}
+
+/* A second relay is a normal mistake (the last window was left open), so the
+   server walks up the port range instead of dying with an unhandled error. */
+function start(port, tries) {
+  var onError = function (err) {
+    server.removeListener("error", onError);
+    if (err && err.code === "EADDRINUSE" && tries > 0 && !FIXED_PORT) {
+      console.log("Port " + port + " is busy — trying " + (port + 1) + "…");
+      start(port + 1, tries - 1);
+      return;
+    }
+    if (err && err.code === "EADDRINUSE") {
+      console.error("");
+      console.error("PEAKLINE could not start: port " + port + " is already in use.");
+      console.error("Close the other relay window, or run it on another port:");
+      console.error("  PORT=8124 node server.js      (PowerShell)  $env:PORT=8124; node server.js");
+      console.error("");
+      process.exit(1);
+    }
+    console.error("PEAKLINE could not start: " + (err && err.message ? err.message : err));
+    process.exit(1);
+  };
+
+  server.once("error", onError);
+  server.listen(port, HOST, function () {
+    server.removeListener("error", onError);
+    var bound = server.address();
+    ready(bound && bound.port ? bound.port : port);
+  });
+}
+
+start(PORT, 8);

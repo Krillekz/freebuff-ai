@@ -50,6 +50,10 @@ npm install           # only needed for the Electron build
 npm run build:win     # dist/PEAKLINE-Setup-1.1.0.exe
 ```
 
+Keep the relay window open while you draft. If port 8123 is already taken — usually a
+relay you left running in another window — the server moves up to the next free port and
+prints the address to open instead of crashing.
+
 The solo desks work straight from `index.html`; the 1v1 Live rooms need `server.js` (or the
 desktop build).
 
