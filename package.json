@@ -1,11 +1,11 @@
 {
-  "name": "freebuff-ai",
-  "productName": "FreeBuff AI",
-  "version": "1.0.0",
+  "name": "peakline",
+  "productName": "PEAKLINE",
+  "version": "1.1.0",
   "private": true,
-  "description": "FreeBuff AI: Anime Character Builder & Battler - Fight Night Edition. Roll five, file them blind, then rate the deck, fight the AI, challenge a friend or put two fighters in front of the analyst.",
+  "description": "PEAKLINE — an anime draft room. Roll five, file them blind, then rate the deck, duel the bot, challenge a friend or put two fighters in front of the analyst.",
   "author": {
-    "name": "Krillekz"
+    "name": "Raevik"
   },
   "license": "MIT",
   "main": "desktop/main.js",
@@ -20,9 +20,9 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "com.krillekz.freebuffai",
-    "productName": "FreeBuff AI",
-    "copyright": "FreeBuff AI - Fight Night Edition",
+    "appId": "com.krillekz.peakline",
+    "productName": "PEAKLINE",
+    "copyright": "PEAKLINE — Draft night · designed and built by Raevik",
     "asar": false,
     "directories": {
       "output": "dist",
@@ -48,7 +48,7 @@
         }
       ],
       "icon": "build/icon.ico",
-      "artifactName": "FreeBuff-AI-Setup-${version}.${ext}"
+      "artifactName": "PEAKLINE-Setup-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -56,8 +56,8 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "FreeBuff AI",
-      "uninstallDisplayName": "FreeBuff AI (Fight Night Edition)",
+      "shortcutName": "PEAKLINE",
+      "uninstallDisplayName": "PEAKLINE (Draft night)",
       "deleteAppDataOnUninstall": false
     }
   }

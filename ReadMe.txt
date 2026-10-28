@@ -1,7 +1,7 @@
-# FreeBuff AI: Anime Character Builder & Battler
+# PEAKLINE: Anime Character Builder & Battler
 ### System Operational Configuration Manual
 
-This document details the file directory pathways and functional parameters required to execute the FreeBuff AI simulation engine. The application utilizes a dual-tab, data-driven architecture to facilitate localized asset management, gacha randomization validation, and predictive attribute matchup logic.
+This document details the file directory pathways and functional parameters required to execute the PEAKLINE simulation engine. The application utilizes a dual-tab, data-driven architecture to facilitate localized asset management, gacha randomization validation, and predictive attribute matchup logic.
 
 ---
 
@@ -21,7 +21,7 @@ The application core architecture dynamically queries and syncs data strings fro
 
 ## 🕹️ Brief Game Overview & Core Frameworks
 
-FreeBuff AI functions as a data-driven card engineering and stat comparison engine. The user interface splits operations into two specialized workspaces:
+PEAKLINE functions as a data-driven card engineering and stat comparison engine. The user interface splits operations into two specialized workspaces:
 
 ### 1. Tab 1: Character Builder (Roulette Sandbox)
 *   **Pure Random Gacha:** Players interact with a pull mechanism drawing random actual anime characters. Selection is entirely random with no underlying programmatic drop guarantees or pity thresholds.

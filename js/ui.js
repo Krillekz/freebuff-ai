@@ -1,4 +1,4 @@
-/* FreeBuff AI — interface controller
+/* PEAKLINE — interface controller
    Builds the builder, the deck rater and the single-fighter duel arena. */
 
 (function (FB) {
@@ -211,18 +211,18 @@
       var r1 = long ? 88 : 91;
       var x1 = 120 + Math.cos(a) * r1, y1 = 120 + Math.sin(a) * r1;
       var x2 = 120 + Math.cos(a) * 96, y2 = 120 + Math.sin(a) * 96;
-      ticks += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#eaf0f6" stroke-opacity="' + (long ? ".38" : ".16") + '"/>';
+      ticks += '<line class="tick" x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke-opacity="' + (long ? ".34" : ".13") + '"/>';
     }
     return '<div class="dial">' +
       '<svg viewBox="0 0 240 240" aria-hidden="true">' +
-        '<circle cx="120" cy="120" r="104" fill="none" stroke="#ff5c45" stroke-opacity=".22"/>' +
-        '<circle cx="120" cy="120" r="70" fill="none" stroke="#ff5c45" stroke-opacity=".12"/>' +
+        '<circle class="ring-outer" cx="120" cy="120" r="104" fill="none"/>' +
+        '<circle class="ring-inner" cx="120" cy="120" r="70" fill="none"/>' +
         '<g class="dial-spin">' +
-          '<circle cx="120" cy="120" r="94" fill="none" stroke="#ff5c45" stroke-opacity=".85" stroke-width="2" stroke-dasharray="118 472" stroke-linecap="round" transform="rotate(-90 120 120)"/>' +
+          '<circle class="arc" cx="120" cy="120" r="94" fill="none" stroke-width="2" stroke-dasharray="118 472" stroke-linecap="round" transform="rotate(-90 120 120)"/>' +
         "</g>" +
         '<g class="dial-spin-rev">' + ticks + "</g>" +
-        '<path d="M120 24 216 120 120 216 24 120Z" fill="none" stroke="#ff5c45" stroke-opacity=".3"/>' +
-        '<path d="M120 52 188 120 120 188 52 120Z" fill="none" stroke="#eaf0f6" stroke-opacity=".08"/>' +
+        '<path class="diamond-a" d="M120 24 216 120 120 216 24 120Z" fill="none"/>' +
+        '<path class="diamond-b" d="M120 52 188 120 120 188 52 120Z" fill="none"/>' +
       "</svg>" +
       '<div class="dial-core">' +
         '<span class="dial-num">' + activePool().length + "</span>" +
@@ -326,6 +326,7 @@
       '<div class="seal-actions">' +
         '<button class="btn btn-primary" type="button" data-action="to-rater">Rate the deck <span aria-hidden="true">\u2192</span></button>' +
         '<button class="btn" type="button" data-action="to-duel">Take it to 1v1</button>' +
+        '<button class="btn" type="button" data-action="share-deck">Copy the card</button>' +
         '<button class="btn" type="button" data-action="reset">New session</button>' +
       "</div>" +
     "</div>";
@@ -636,7 +637,7 @@
         '<div class="report-actions">' +
           '<button class="btn btn-primary" type="button" data-action="rater-duel">1v1 with the anchor</button>' +
           '<button class="btn" type="button" data-action="to-builder">Adjust the core</button>' +
-          '<button class="btn" type="button" data-action="copy-grade">Copy grade</button>' +
+          '<button class="btn" type="button" data-action="copy-grade">Copy the card</button>' +
         "</div>" +
       "</section>" +
     "</div>";
@@ -959,6 +960,30 @@
     }
   }
 
+  /* One text card for a sealed deck — pasteable into a chat or a forum. */
+  function deckCard(rating) {
+    var m = mods();
+    var lines = state.deck.map(function (c, i) {
+      if (!c) return "";
+      var sc = FB.scoreSlot(c, KEYS[i], m);
+      return S[i].label + ": " + c.name + " (" + c.series + ")" + (sc.star ? " *" : sc.mismatch ? " off-meta" : "");
+    }).filter(Boolean);
+    return "PEAKLINE — " + (state.scope ? state.scope + " only" : "random pool") +
+      "\nGrade " + rating.grade + " · " + rating.rating + "/100 · " + rating.total + " output · " +
+      rating.peaks + "/5 peaks · beats " + rating.percentile + "% of peak-built cores" +
+      "\n" + lines.join("\n");
+  }
+
+  function copyText(text, okMessage) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        announce(okMessage);
+      }, function () { announce("Clipboard unavailable."); });
+    } else {
+      announce("Clipboard unavailable.");
+    }
+  }
+
   function resetSession() {
     state.deck = [null, null, null, null, null];
     state.offer = null;
@@ -1028,16 +1053,9 @@
         if (typeof FB.go === "function") FB.go("duel");
         announce(best.name + " is in your corner.");
       }
-    } else if (action === "copy-grade") {
+    } else if (action === "copy-grade" || action === "share-deck") {
       var rating = FB.rateDeck(state.deck, mods());
-      var line = "FreeBuff AI — grade " + rating.grade + " (" + rating.rating + "/100), " + rating.total + " output, " + rating.peaks + "/5 peaks, " + rating.percentile + "th-percentile vs peak-built cores.";
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(line).then(function () {
-          announce("Grade copied to clipboard.");
-        }, function () { announce("Clipboard unavailable."); });
-      } else {
-        announce("Clipboard unavailable.");
-      }
+      copyText(deckCard(rating), "Deck card copied to the clipboard.");
     }
   }
 

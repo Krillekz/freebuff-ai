@@ -1,4 +1,4 @@
-/* FreeBuff AI — shared fighter picker
+/* PEAKLINE — shared fighter picker
    Type a name or series, or draw a random fighter. Peak data is never shown. */
 
 (function (FB) {

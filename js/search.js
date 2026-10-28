@@ -1,4 +1,4 @@
-/* FreeBuff AI — character searcher
+/* PEAKLINE — character searcher
    A scouting overlay over every card on file: the 500-series champion roster
    plus the 118 series-pool fighters. Canon is sealed by default, matching the
    draft card, and can be revealed deliberately per fighter. */

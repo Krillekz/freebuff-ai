@@ -1,4 +1,4 @@
-/* FreeBuff AI — core reference data
+/* PEAKLINE — core reference data
    STATS / TIERS / RARITIES are strict per GameInfo.txt.
 
    CURATED maps a roster series to its champion:

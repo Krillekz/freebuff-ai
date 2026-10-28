@@ -1,4 +1,4 @@
-/* FreeBuff AI — live 1v1 client
+/* PEAKLINE — live 1v1 client
    A two-player room that runs the exact 01 builder loop: five server-dealt
    rolls, blind filing, one reroll each, then a sealed deck-vs-deck result.
    Rooms are hosted on the local relay (server.js) with a code or public queue.

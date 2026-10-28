@@ -1,4 +1,4 @@
-/* FreeBuff AI — analyst desk
+/* PEAKLINE — analyst desk
    A local, rules-aware analyst: conversation, two-fighter matchups and a
    briefing sheet. No network model, no cloud, no key. */
 
@@ -351,7 +351,7 @@
     var el = document.createElement("div");
     el.className = "msg " + role;
     el.innerHTML =
-      '<span class="msg-avatar" aria-hidden="true">' + (role === "user" ? "YOU" : "AI") + "</span>" +
+      '<span class="msg-avatar" aria-hidden="true">' + (role === "user" ? "YOU" : "P") + "</span>" +
       '<div class="msg-body">' + html + '<span class="msg-time">' + (stamp || now()) + "</span></div>";
     log.appendChild(el);
     log.scrollTop = log.scrollHeight;

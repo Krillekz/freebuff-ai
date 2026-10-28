@@ -1,4 +1,4 @@
-Append this precise data array directly into the FreeBuff AI backend as the complete 500 series rolling database. Every roll triggers an independent, completely random lookup across these series.
+Append this precise data array directly into the PEAKLINE backend as the complete 500 series rolling database. Every roll triggers an independent, completely random lookup across these series.
 
 ### ANIME CHARACTER ROSTER DATABASE (COMPREHENSIVE 500 SERIES POOL)
 The game's baseline character rolling pool must consist of iconic figures pulled across exactly 500 distinct anime series, providing the ultimate definitive crossover experience across action shonen, dark fantasy, slice of life, classic masterpieces, giant mainstream hits, and an expansive catalog of Isekai properties:

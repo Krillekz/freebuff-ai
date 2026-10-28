@@ -1,4 +1,4 @@
-/* FreeBuff AI — local match server
+/* PEAKLINE — local match server
    Serves the app and runs live 1v1 draft rooms over HTTP. No dependencies.
    Start: node server.js   (PORT=8123 by default)
 
@@ -541,7 +541,7 @@ setInterval(function () {
 }, 60000);
 
 server.listen(PORT, HOST, function () {
-  console.log("FreeBuff match server on http://127.0.0.1:" + PORT);
+  console.log("PEAKLINE match server on http://127.0.0.1:" + PORT);
   Object.keys(os.networkInterfaces()).forEach(function (name) {
     (os.networkInterfaces()[name] || []).forEach(function (iface) {
       if (iface.family === "IPv4" && !iface.internal) {

@@ -1,5 +1,6 @@
-/* FreeBuff AI — application shell
-   Owns tab navigation, the awakening switch, keyboard shortcuts and boot. */
+/* PEAKLINE — application shell
+   Owns rail navigation, the theme switch, the shortcuts sheet, the awakening
+   switch, keyboard shortcuts and boot. */
 
 (function (FB) {
   "use strict";
@@ -36,11 +37,11 @@
     if (name === "analyst" && FB.analyst) FB.analyst.enter();
 
     var main = document.getElementById("main");
-    var nav = document.querySelector(".nav");
+    var top = document.querySelector(".top");
     if (main && window.scrollY > 0) {
-      var offset = (nav ? nav.offsetHeight : 54) + 10;
-      var top = main.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+      var offset = (top ? top.offsetHeight : 64) + 12;
+      var top0 = main.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top0), behavior: "auto" });
     }
   }
 
@@ -49,17 +50,95 @@
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () { go(tab.getAttribute("data-view")); });
     tab.addEventListener("keydown", function (e) {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "Home" && e.key !== "End") return;
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "ArrowDown" && e.key !== "ArrowUp" && e.key !== "Home" && e.key !== "End") return;
       e.preventDefault();
       var at = tabs.indexOf(tab);
+      var back = e.key === "ArrowLeft" || e.key === "ArrowUp";
       var next = e.key === "Home" ? 0
         : e.key === "End" ? tabs.length - 1
-        : e.key === "ArrowRight" ? (at + 1) % tabs.length
-        : (at - 1 + tabs.length) % tabs.length;
+        : back ? (at - 1 + tabs.length) % tabs.length
+        : (at + 1) % tabs.length;
       tabs[next].focus();
       go(tabs[next].getAttribute("data-view"));
     });
   });
+
+  /* ── theme: noir (default) or paper ─────────────────────────────────── */
+
+  var THEME_KEY = "peakline.theme";
+
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") === "paper" ? "paper" : "noir";
+  }
+
+  function paintTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    var next = theme === "paper" ? "noir" : "paper";
+    var main = document.getElementById("theme-toggle");
+    if (main) {
+      main.setAttribute("aria-pressed", theme === "paper" ? "true" : "false");
+      main.title = "Switch to the " + next + " theme";
+      var label = main.querySelector(".rail-btn-label");
+      if (label) label.textContent = next === "paper" ? "Paper" : "Noir";
+    }
+    var chip = document.getElementById("theme-toggle-mobile");
+    if (chip) {
+      chip.setAttribute("aria-label", "Switch to the " + next + " theme");
+      chip.textContent = theme === "paper" ? "☾" : "◐";
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", theme === "paper" ? "#f2efe7" : "#08090b");
+  }
+
+  function setTheme(theme) {
+    paintTheme(theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* ignore */ }
+  }
+
+  var storedTheme = "noir";
+  try { storedTheme = localStorage.getItem(THEME_KEY) === "paper" ? "paper" : "noir"; } catch (e) { storedTheme = "noir"; }
+  paintTheme(storedTheme);
+
+  ["theme-toggle", "theme-toggle-mobile"].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      setTheme(currentTheme() === "paper" ? "noir" : "paper");
+    });
+  });
+
+  /* ── shortcuts sheet ────────────────────────────────────────────────── */
+
+  var keysOverlay = document.getElementById("keys-overlay");
+  var keysPanel = document.getElementById("keys-panel");
+
+  function keysOpen() {
+    if (!keysOverlay || !keysOverlay.hidden) return;
+    keysOverlay.hidden = false;
+    document.body.classList.add("keys-open");
+    var opener = document.getElementById("keys-open");
+    if (opener) opener.setAttribute("aria-expanded", "true");
+    if (keysPanel) keysPanel.focus();
+  }
+
+  function keysClose() {
+    if (!keysOverlay || keysOverlay.hidden) return;
+    keysOverlay.hidden = true;
+    document.body.classList.remove("keys-open");
+    var opener = document.getElementById("keys-open");
+    if (opener) {
+      opener.setAttribute("aria-expanded", "false");
+      opener.focus();
+    }
+  }
+
+  if (keysOverlay) {
+    var keysBtn = document.getElementById("keys-open");
+    if (keysBtn) keysBtn.addEventListener("click", keysOpen);
+    Array.prototype.forEach.call(keysOverlay.querySelectorAll("[data-keys-close]"), function (el) {
+      el.addEventListener("click", keysClose);
+    });
+  }
 
   /* ── analyst sub-tabs ────────────────────────────────────────────────── */
 
@@ -107,7 +186,19 @@
   document.addEventListener("keydown", function (e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     var tag = e.target && e.target.tagName;
-    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable)) return;
+    var typing = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable);
+
+    if (e.key === "Escape" && keysOverlay && !keysOverlay.hidden) {
+      e.preventDefault();
+      keysClose();
+      return;
+    }
+    if (!typing && !(FB.search && FB.search.isOpen()) && e.key === "?") {
+      e.preventDefault();
+      keysOverlay && !keysOverlay.hidden ? keysClose() : keysOpen();
+      return;
+    }
+    if (typing) return;
     if (FB.search && FB.search.isOpen()) return;
     if (e.key === "Escape") {
       var open = document.querySelector(".picker-results:not([hidden])");

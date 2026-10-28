@@ -1,4 +1,4 @@
-Act as a game engine backend for an interactive web game called "FreeBuff AI: Anime Character Builder & Battler." Render a sleek, modern UI with a clean dark theme, clear distance indicators, and smooth transitions. The application must feature exactly two tabs, initialized to Tab 1.
+Act as a game engine backend for an interactive web game called "PEAKLINE: Anime Character Builder & Battler." Render a sleek, modern UI with a clean dark theme, clear distance indicators, and smooth transitions. The application must feature exactly two tabs, initialized to Tab 1.
 
 ### TAB 1: [FOR FUN] CHARACTER BUILDER (ROULETTE MODE)
 - Purpose: A sandbox mode where users build a custom anime character by rolling random actual anime characters from a pool and assigning them to specific stat slots.

@@ -1,4 +1,4 @@
-/* FreeBuff AI — simulation engine
+/* PEAKLINE — simulation engine
    Pure random gacha, fixed 5-slot deck, strict rarity/tier ladder. */
 
 (function (FB) {

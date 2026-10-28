@@ -1,4 +1,4 @@
-/* FreeBuff AI — deck rating
+/* PEAKLINE — deck rating
    Scores a sealed five-slot deck against a deterministic peak-built benchmark. */
 
 (function (FB) {

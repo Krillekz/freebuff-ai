@@ -1,4 +1,4 @@
-/* FreeBuff AI — character portrait resolver
+/* PEAKLINE — character portrait resolver
    AniList search is used on demand (only for cards actually on screen), matched
    against the roster series, then cached in localStorage. Any miss or offline
    error simply leaves the printed crest in place. */

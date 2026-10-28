@@ -1,5 +1,5 @@
 /* Builds build/icon.ico (Windows app icon) from a small raster logo:
-   the lime "F" mark on a dark rounded tile, matching the in-app brand.
+   five ink bars on a lime rounded tile — the PEAKLINE mark.
    No dependencies — PNG encoding is done here, and the ICO wraps the
    PNG frames directly (supported by Windows Vista and later).
 
@@ -15,16 +15,16 @@ const OUT_DIR = __dirname;
 const SIZES = [256, 128, 64, 48, 32, 16];
 const SS = 4; /* supersampling factor */
 
-const BG_TOP = [18, 22, 27];
-const BG_BOTTOM = [7, 9, 11];
-const LIME = [200, 255, 61];
-const EDGE = [200, 255, 61, 0.22];
+const BG_TOP = [219, 255, 74];
+const BG_BOTTOM = [197, 236, 36];
+const LIME = [10, 12, 7];
+const EDGE = [10, 12, 7, 0.22];
 
-/* the brand glyph, on the same 32-unit grid the favicon uses */
-const GLYPH = [
-  [7, 25], [7, 7], [22, 7], [19, 12], [12, 12],
-  [12, 15], [18, 15], [15.5, 20], [12, 20], [12, 25]
-];
+/* five bars, on the same 32-unit grid the favicon uses */
+const BARS = [[4.6, 17], [9.4, 11], [14.2, 15], [19.0, 7], [23.8, 4]];
+const BAR_W = 3.4;
+const BAR_BOTTOM = 26;
+const BOUNDS = [4.6, 4, 23.8 + BAR_W, 26];
 
 function inPoly(x, y, pts) {
   let inside = false;
@@ -60,18 +60,18 @@ function sample(size, x, y) {
     Math.round(BG_TOP[2] + (BG_BOTTOM[2] - BG_TOP[2]) * t)
   ];
 
-  /* thin brand rim just inside the tile edge */
-  if (!insideTile(x, y, size, pad + size * 0.022, radius * 0.94)) {
-    return [EDGE[0], EDGE[1], EDGE[2], 255];
-  }
-
   const s = size / 32;
-  /* centre the glyph on its own bounding box, not the 32-unit grid */
-  const offX = size * 0.5 - ((7 + 22) / 2) * s;
-  const offY = size * 0.5 - ((7 + 25) / 2) * s;
+  /* centre the bars on their own bounding box, not the 32-unit grid */
+  const offX = size * 0.5 - ((BOUNDS[0] + BOUNDS[2]) / 2) * s;
+  const offY = size * 0.5 - ((BOUNDS[1] + BOUNDS[3]) / 2) * s;
   const gx = (x - offX) / s;
   const gy = (y - offY) / s;
-  if (inPoly(gx, gy, GLYPH)) return [LIME[0], LIME[1], LIME[2], 255];
+  for (let b = 0; b < BARS.length; b++) {
+    const bx = BARS[b][0], by = BARS[b][1];
+    if (gx >= bx && gx <= bx + BAR_W && gy >= by && gy <= BAR_BOTTOM) {
+      return [LIME[0], LIME[1], LIME[2], 255];
+    }
+  }
 
   return [base[0], base[1], base[2], 255];
 }

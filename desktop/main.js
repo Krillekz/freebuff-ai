@@ -1,4 +1,4 @@
-/* FreeBuff AI — desktop shell
+/* PEAKLINE — desktop shell
    Starts the bundled match relay (the same server.js the browser build uses)
    on a loopback port, waits until it answers, then opens the app in a window.
    Nothing external is required: the solo desks and the live 1v1 rooms both
@@ -103,8 +103,8 @@ function openWindow(port) {
     minWidth: 960,
     minHeight: 640,
     show: !SMOKE,
-    backgroundColor: "#07090b",
-    title: "FreeBuff AI — Fight Night Edition",
+    backgroundColor: "#080910",
+    title: "PEAKLINE — Draft night",
     autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,
@@ -185,7 +185,7 @@ function smoke(candidate) {
 if (!app.requestSingleInstanceLock()) {
   app.quit();
 } else {
-  app.setName("FreeBuff AI");
+  app.setName("PEAKLINE");
   app.setAppUserModelId("com.krillekz.freebuffai");
 
   app.on("second-instance", function () {
@@ -209,7 +209,7 @@ if (!app.requestSingleInstanceLock()) {
         return;
       }
       dialog.showErrorBox(
-        "FreeBuff AI could not start",
+        "PEAKLINE could not start",
         "The local match relay did not come up.\n\n" + (err && err.message ? err.message : String(err))
       );
       app.quit();
